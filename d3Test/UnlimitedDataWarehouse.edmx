@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="UnlimitedDataWarehouseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <Function Name="proc_Finance_TTB_ByBouquet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="DataMartRS">
+          <Parameter Name="Month" Type="int" Mode="In" />
+          <Parameter Name="Count" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="UnlimitedDataWarehouseModelStoreContainer" />
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="UnlimitedDataWarehouseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="proc_Finance_TTB_ByBouquet" ReturnType="Collection(UnlimitedDataWarehouseModel.proc_Finance_TTB_ByBouquet_Result)">
+          <Parameter Name="Month" Mode="In" Type="Int32" />
+            <Parameter Name="Count" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="proc_Finance_TTB_ByBouquet_Result">
+          <Property Type="String" Name="BouquetType" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="BouquetPrefix" Nullable="false" MaxLength="3" />
+          <Property Type="String" Name="BouquetName" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="TTB" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="UnlimitedDataWarehouseModelStoreContainer" CdmEntityContainer="Entities" >
+          <FunctionImportMapping FunctionImportName="proc_Finance_TTB_ByBouquet" FunctionName="UnlimitedDataWarehouseModel.Store.proc_Finance_TTB_ByBouquet">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="UnlimitedDataWarehouseModel.proc_Finance_TTB_ByBouquet_Result">
+                <ScalarProperty Name="BouquetType" ColumnName="BouquetType" />
+                <ScalarProperty Name="BouquetPrefix" ColumnName="BouquetPrefix" />
+                <ScalarProperty Name="BouquetName" ColumnName="BouquetName" />
+                <ScalarProperty Name="TTB" ColumnName="TTB" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

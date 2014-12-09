@@ -1,0 +1,337 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="GeniSysModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="LookUpCodes">
+          <Key>
+            <PropertyRef Name="LUCLookUpType" />
+            <PropertyRef Name="LookUpCode" />
+          </Key>
+          <Property Name="LUCLookUpType" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LookUpCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="SequenceNo" Type="smallint" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="DeletedBy" Type="uniqueidentifier" />
+          <Property Name="DeletedByName" Type="varchar" MaxLength="100" />
+          <Property Name="SystemField" Type="bit" Nullable="false" />
+          <Property Name="GenisysID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LookUpRules" Type="xml" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="ClaimsSpecific" Type="bit" />
+        </EntityType>
+        <EntityType Name="Policy">
+          <Key>
+            <PropertyRef Name="PolicyNo" />
+          </Key>
+          <Property Name="PolicyNo" Type="nvarchar" MaxLength="12" Nullable="false" />
+          <Property Name="GlobalEntityID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ResponsibleEntityID" Type="uniqueidentifier" />
+          <Property Name="AccountID" Type="uniqueidentifier" />
+          <Property Name="BouquetPrefix" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="CountryID" Type="char" MaxLength="2" />
+          <Property Name="MerchCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="OfficeCode" Type="varchar" MaxLength="10" />
+          <Property Name="ProductCycle" Type="int" Nullable="false" />
+          <Property Name="LUCPolicyStatus" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DebitRunID" Type="int" Nullable="false" />
+          <Property Name="YearWeekID" Type="int" />
+          <Property Name="FailureCount" Type="int" />
+          <Property Name="PolicyXML" Type="xml" />
+          <Property Name="InsertedOn" Type="datetime" />
+          <Property Name="InsertedBy" Type="uniqueidentifier" />
+          <Property Name="InsertedByName" Type="varchar" MaxLength="100" />
+          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="uniqueidentifier" />
+          <Property Name="UpdatedByName" Type="varchar" MaxLength="100" />
+          <Property Name="LegacyProductCycle" Type="int" />
+          <Property Name="LegacyPolicyStatus" Type="int" />
+          <Property Name="LegacyMerchandiserCodeID" Type="int" />
+          <Property Name="SupervisorCode" Type="varchar" MaxLength="10" />
+          <Property Name="TeamLeaderCode" Type="varchar" MaxLength="50" />
+          <Property Name="GenisysID" Type="uniqueidentifier" />
+          <Property Name="LUCPaymentMethod" Type="varchar" MaxLength="50" />
+          <Property Name="LUCBillingCycle" Type="varchar" MaxLength="50" />
+          <Property Name="ParentSalesChannelID" Type="varchar" MaxLength="50" />
+          <Property Name="SalesChannelID" Type="varchar" MaxLength="50" />
+          <Property Name="campaignID" Type="varchar" MaxLength="50" />
+          <Property Name="IsFixedExtractDate" Type="bit" />
+          <Property Name="IsMerchPayable" Type="bit" />
+          <Property Name="IsPostponeActivation" Type="bit" />
+          <Property Name="PolicyCommencementDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Bouquet">
+          <Key>
+            <PropertyRef Name="BouquetPrefix" />
+          </Key>
+          <Property Name="BouquetPrefix" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="BouquetName" Type="varchar" MaxLength="50" />
+          <Property Name="LUCBouquetType" Type="varchar" MaxLength="50" />
+          <Property Name="LUCBouquetStatus" Type="varchar" MaxLength="50" />
+          <Property Name="BouquetCompatibility" Type="varchar(max)" />
+          <Property Name="SMSText" Type="varchar" MaxLength="320" />
+          <Property Name="FileRef" Type="uniqueidentifier" />
+          <Property Name="Email" Type="varchar" MaxLength="75" />
+          <Property Name="EmailSubject" Type="varchar" MaxLength="100" />
+          <Property Name="EmailTemplate" Type="nvarchar(max)" />
+          <Property Name="HTML" Type="nvarchar(max)" />
+          <Property Name="WebAddress" Type="varchar" MaxLength="50" />
+          <Property Name="InsertedOn" Type="datetime" />
+          <Property Name="InsertedBy" Type="uniqueidentifier" />
+          <Property Name="InsertedByName" Type="varchar" MaxLength="100" />
+          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="uniqueidentifier" />
+          <Property Name="UpdatedByName" Type="varchar" MaxLength="100" />
+          <Property Name="GenisysID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LegacyProductID" Type="int" />
+          <Property Name="IsCashbackBouquet" Type="bit" Nullable="false" />
+          <Property Name="PointsValue" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="AttachedBehaviourDefinition" Type="xml" />
+          <Property Name="OnlineFormXML" Type="xml" />
+          <Property Name="WelcomePackSendTypeId" Type="int" Nullable="false" />
+        </EntityType>
+        <Function Name="proc_GPTest_GetProductCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="BouquetType" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="GeniSysModelStoreContainer">
+          <EntitySet Name="LookUpCodes" EntityType="Self.LookUpCodes" Schema="General" store:Type="Tables" />
+          <EntitySet Name="Policy" EntityType="Self.Policy" Schema="Policy" store:Type="Tables" />
+          <EntitySet Name="Bouquet" EntityType="Self.Bouquet" Schema="Product" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GeniSysModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Policy">
+          <Key>
+            <PropertyRef Name="PolicyNo" />
+          </Key>
+          <Property Name="PolicyNo" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GlobalEntityID" Type="Guid" Nullable="false" />
+          <Property Name="ResponsibleEntityID" Type="Guid" />
+          <Property Name="AccountID" Type="Guid" />
+          <Property Name="BouquetPrefix" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CountryID" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="MerchCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OfficeCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ProductCycle" Type="Int32" Nullable="false" />
+          <Property Name="LUCPolicyStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DebitRunID" Type="Int32" Nullable="false" />
+          <Property Name="YearWeekID" Type="Int32" />
+          <Property Name="FailureCount" Type="Int32" />
+          <Property Name="PolicyXML" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="InsertedOn" Type="DateTime" Precision="3" />
+          <Property Name="InsertedBy" Type="Guid" />
+          <Property Name="InsertedByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Guid" />
+          <Property Name="UpdatedByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LegacyProductCycle" Type="Int32" />
+          <Property Name="LegacyPolicyStatus" Type="Int32" />
+          <Property Name="LegacyMerchandiserCodeID" Type="Int32" />
+          <Property Name="SupervisorCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TeamLeaderCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GenisysID" Type="Guid" />
+          <Property Name="LUCPaymentMethod" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LUCBillingCycle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ParentSalesChannelID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SalesChannelID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="campaignID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsFixedExtractDate" Type="Boolean" />
+          <Property Name="IsMerchPayable" Type="Boolean" />
+          <Property Name="IsPostponeActivation" Type="Boolean" />
+          <Property Name="PolicyCommencementDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Bouquet">
+          <Key>
+            <PropertyRef Name="BouquetPrefix" />
+          </Key>
+          <Property Name="BouquetPrefix" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BouquetName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LUCBouquetType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LUCBouquetStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BouquetCompatibility" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SMSText" Type="String" MaxLength="320" FixedLength="false" Unicode="false" />
+          <Property Name="FileRef" Type="Guid" />
+          <Property Name="Email" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
+          <Property Name="EmailSubject" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EmailTemplate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HTML" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="WebAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="InsertedOn" Type="DateTime" Precision="3" />
+          <Property Name="InsertedBy" Type="Guid" />
+          <Property Name="InsertedByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Guid" />
+          <Property Name="UpdatedByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="GenisysID" Type="Guid" Nullable="false" />
+          <Property Name="LegacyProductID" Type="Int32" />
+          <Property Name="IsCashbackBouquet" Type="Boolean" Nullable="false" />
+          <Property Name="PointsValue" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="AttachedBehaviourDefinition" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OnlineFormXML" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="WelcomePackSendTypeId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="GeniSysEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Policy" EntityType="Self.Policy" />
+          <EntitySet Name="Bouquet" EntityType="Self.Bouquet" />
+          <EntitySet Name="LookUpCodes" EntityType="GeniSysModel.LookUpCodes" />
+          <FunctionImport Name="proc_GPTest_GetProductCount" ReturnType="Collection(GeniSysModel.proc_GPTest_GetProductCount_Result)">
+            <Parameter Name="BouquetType" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="LookUpCodes">
+          <Key>
+            <PropertyRef Name="LUCLookUpType" />
+            <PropertyRef Name="LookUpCode" />
+          </Key>
+          <Property Name="LUCLookUpType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LookUpCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SequenceNo" Type="Int16" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="DeletedBy" Type="Guid" />
+          <Property Name="DeletedByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SystemField" Type="Boolean" Nullable="false" />
+          <Property Name="GenisysID" Type="Guid" Nullable="false" />
+          <Property Name="LookUpRules" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="ClaimsSpecific" Type="Boolean" />
+        </EntityType>
+        <ComplexType Name="proc_GPTest_GetProductCount_Result">
+          <Property Type="String" Name="BouquetPrefix" Nullable="false" MaxLength="3" />
+          <Property Type="String" Name="BouquetName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Sales" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GeniSysModelStoreContainer" CdmEntityContainer="GeniSysEntities">
+          <EntitySetMapping Name="Policy">
+            <EntityTypeMapping TypeName="GeniSysModel.Policy">
+              <MappingFragment StoreEntitySet="Policy">
+                <ScalarProperty Name="PolicyNo" ColumnName="PolicyNo" />
+                <ScalarProperty Name="GlobalEntityID" ColumnName="GlobalEntityID" />
+                <ScalarProperty Name="ResponsibleEntityID" ColumnName="ResponsibleEntityID" />
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+                <ScalarProperty Name="BouquetPrefix" ColumnName="BouquetPrefix" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="MerchCode" ColumnName="MerchCode" />
+                <ScalarProperty Name="OfficeCode" ColumnName="OfficeCode" />
+                <ScalarProperty Name="ProductCycle" ColumnName="ProductCycle" />
+                <ScalarProperty Name="LUCPolicyStatus" ColumnName="LUCPolicyStatus" />
+                <ScalarProperty Name="DebitRunID" ColumnName="DebitRunID" />
+                <ScalarProperty Name="YearWeekID" ColumnName="YearWeekID" />
+                <ScalarProperty Name="FailureCount" ColumnName="FailureCount" />
+                <ScalarProperty Name="PolicyXML" ColumnName="PolicyXML" />
+                <ScalarProperty Name="InsertedOn" ColumnName="InsertedOn" />
+                <ScalarProperty Name="InsertedBy" ColumnName="InsertedBy" />
+                <ScalarProperty Name="InsertedByName" ColumnName="InsertedByName" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedByName" ColumnName="UpdatedByName" />
+                <ScalarProperty Name="LegacyProductCycle" ColumnName="LegacyProductCycle" />
+                <ScalarProperty Name="LegacyPolicyStatus" ColumnName="LegacyPolicyStatus" />
+                <ScalarProperty Name="LegacyMerchandiserCodeID" ColumnName="LegacyMerchandiserCodeID" />
+                <ScalarProperty Name="SupervisorCode" ColumnName="SupervisorCode" />
+                <ScalarProperty Name="TeamLeaderCode" ColumnName="TeamLeaderCode" />
+                <ScalarProperty Name="GenisysID" ColumnName="GenisysID" />
+                <ScalarProperty Name="LUCPaymentMethod" ColumnName="LUCPaymentMethod" />
+                <ScalarProperty Name="LUCBillingCycle" ColumnName="LUCBillingCycle" />
+                <ScalarProperty Name="ParentSalesChannelID" ColumnName="ParentSalesChannelID" />
+                <ScalarProperty Name="SalesChannelID" ColumnName="SalesChannelID" />
+                <ScalarProperty Name="campaignID" ColumnName="campaignID" />
+                <ScalarProperty Name="IsFixedExtractDate" ColumnName="IsFixedExtractDate" />
+                <ScalarProperty Name="IsMerchPayable" ColumnName="IsMerchPayable" />
+                <ScalarProperty Name="IsPostponeActivation" ColumnName="IsPostponeActivation" />
+                <ScalarProperty Name="PolicyCommencementDate" ColumnName="PolicyCommencementDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bouquet">
+            <EntityTypeMapping TypeName="GeniSysModel.Bouquet">
+              <MappingFragment StoreEntitySet="Bouquet">
+                <ScalarProperty Name="BouquetPrefix" ColumnName="BouquetPrefix" />
+                <ScalarProperty Name="BouquetName" ColumnName="BouquetName" />
+                <ScalarProperty Name="LUCBouquetType" ColumnName="LUCBouquetType" />
+                <ScalarProperty Name="LUCBouquetStatus" ColumnName="LUCBouquetStatus" />
+                <ScalarProperty Name="BouquetCompatibility" ColumnName="BouquetCompatibility" />
+                <ScalarProperty Name="SMSText" ColumnName="SMSText" />
+                <ScalarProperty Name="FileRef" ColumnName="FileRef" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailSubject" ColumnName="EmailSubject" />
+                <ScalarProperty Name="EmailTemplate" ColumnName="EmailTemplate" />
+                <ScalarProperty Name="HTML" ColumnName="HTML" />
+                <ScalarProperty Name="WebAddress" ColumnName="WebAddress" />
+                <ScalarProperty Name="InsertedOn" ColumnName="InsertedOn" />
+                <ScalarProperty Name="InsertedBy" ColumnName="InsertedBy" />
+                <ScalarProperty Name="InsertedByName" ColumnName="InsertedByName" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedByName" ColumnName="UpdatedByName" />
+                <ScalarProperty Name="GenisysID" ColumnName="GenisysID" />
+                <ScalarProperty Name="LegacyProductID" ColumnName="LegacyProductID" />
+                <ScalarProperty Name="IsCashbackBouquet" ColumnName="IsCashbackBouquet" />
+                <ScalarProperty Name="PointsValue" ColumnName="PointsValue" />
+                <ScalarProperty Name="AttachedBehaviourDefinition" ColumnName="AttachedBehaviourDefinition" />
+                <ScalarProperty Name="OnlineFormXML" ColumnName="OnlineFormXML" />
+                <ScalarProperty Name="WelcomePackSendTypeId" ColumnName="WelcomePackSendTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LookUpCodes">
+            <EntityTypeMapping TypeName="GeniSysModel.LookUpCodes">
+              <MappingFragment StoreEntitySet="LookUpCodes">
+                <ScalarProperty Name="ClaimsSpecific" ColumnName="ClaimsSpecific" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="LookUpRules" ColumnName="LookUpRules" />
+                <ScalarProperty Name="GenisysID" ColumnName="GenisysID" />
+                <ScalarProperty Name="SystemField" ColumnName="SystemField" />
+                <ScalarProperty Name="DeletedByName" ColumnName="DeletedByName" />
+                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="SequenceNo" ColumnName="SequenceNo" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="LookUpCode" ColumnName="LookUpCode" />
+                <ScalarProperty Name="LUCLookUpType" ColumnName="LUCLookUpType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="proc_GPTest_GetProductCount" FunctionName="GeniSysModel.Store.proc_GPTest_GetProductCount">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GeniSysModel.proc_GPTest_GetProductCount_Result">
+                <ScalarProperty Name="BouquetPrefix" ColumnName="BouquetPrefix" />
+                <ScalarProperty Name="BouquetName" ColumnName="BouquetName" />
+                <ScalarProperty Name="Sales" ColumnName="Sales" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
